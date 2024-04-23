@@ -17,13 +17,21 @@ function isDigit(str) {
 }
 
 function isOperation(str) {
-    return /^[\+\-\*\/]{1}$/.test(str);
+    return /^[\+\-\*\/√^]$/.test(str);
 }
 
 function tokenize(str) {
     let tokens = [];
     let lastNumber = '';
     for (char of str) {
+        if (char === 'π' || char === 'e'){
+            if (lastNumber !== ''){
+                tokens.push(lastNumber);
+                tokens.push("*");
+                lastNumber = '';
+            }
+            tokens.push(char);
+        }
         if (isDigit(char) || char == '.') {
             lastNumber += char;
         } else {
@@ -51,7 +59,12 @@ function compile(str) {
         str = str.slice(1);
     }
     for (token of tokenize(str)) {
-        if (isNumeric(token)) {
+        console.log(token)
+        if (token === "π") {
+            out.push(Math.PI);
+        } else if (token === "e") {
+            out.push(Math.E);
+        } else if (isNumeric(token)) {
             out.push(token);
         } else if (isOperation(token)) {
             while (stack.length > 0 && isOperation(stack[stack.length - 1])
@@ -87,6 +100,10 @@ function performOperation(a, b, operator) {
                 throw new Error('Division by zero');
             }
             return a / b;
+        case '^':
+            return Math.pow(a, b);
+        case '√':
+            return Math.sqrt(b);
         default:
             throw new Error('Invalid operator');
     }
@@ -95,14 +112,21 @@ function performOperation(a, b, operator) {
 function evaluate(str) {
     let arr = [];
     let znach = str.split(' ');
+    console.log(str);
 
     for (symbol of znach) {
         if (isNumeric(symbol)) {
             arr.push(parseFloat(symbol));
         } else if (isOperation(symbol)) {
-            let oper2 = arr.pop();
-            let oper1 = arr.pop();
-            let result = performOperation(oper1, oper2, symbol);
+            let result;
+            if (symbol === '√') {
+                let oper2 = arr.pop();
+                result = performOperation(null, oper2, symbol);
+            } else {
+                let oper2 = arr.pop();
+                let oper1 = arr.pop();
+                result = performOperation(oper1, oper2, symbol);
+            }
             arr.push(result);
         }
     }
