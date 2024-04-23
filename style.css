@@ -1,0 +1,101 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #333;
+    color: white; 
+    font-family: 'Prompt', sans-serif;
+}
+
+.calculate {
+    background: #222; 
+    border-radius: 20px; 
+    padding: 20px;
+    width: 300px;
+}
+
+.screen {
+    background: #111; 
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: right;
+    font-size: 2em;
+    min-height: 60px; 
+}
+
+.buttons .row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px; 
+}
+
+.key {
+    background: #555; 
+    border: none;
+    border-radius: 50%; 
+    color: white; 
+    font-size: 1.5em;
+    cursor: pointer;
+    width: 60px; 
+    height: 60px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+}
+
+
+.key.zero {
+    border-radius: 30px; 
+    flex-grow: 1; 
+}
+
+.key.operation {
+    background: #ff9500; 
+}
+
+.key.function {
+    background: #a6a6a6; 
+}
+
+.key.result {
+    background: #ff9500; 
+    border-radius: 30px; 
+    flex-grow: 1; 
+}
+
+.key:hover {
+    filter: brightness(1.2); 
+}
+
+.buttons .row:last-child {
+    justify-content: flex-start;
+}
+
+.buttons .row .key.operation,
+.buttons .row .key.function,
+.buttons .row .key.result {
+    flex-basis: 60px; 
+    flex-grow: 0;
+}
+
+.buttons .row:last-child .key {
+    border-radius: 50%;
+    width: auto;
+    flex: 1 1 auto;
+}
+
+.buttons .row:last-child .key.zero,
+.buttons .row:last-child .key.result {
+    flex: 0 1 130px; 
+}
+
+.buttons .row .key:last-child {
+    margin-right: 0;
+}
+
+.key > span {
+    text-align: center;
+}
